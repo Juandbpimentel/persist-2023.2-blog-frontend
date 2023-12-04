@@ -5,13 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "buscarAutorPorIdDePost", query = "select p.usuario from Post p where p.id = :id")
-        ,@NamedQuery(name = "buscarComentariosPorIdDoPost", query = "select p.comentarios from Post p where p.id = :id")
-})
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 @Entity
 @Table(name = "posts", schema = "public")
 @Data
@@ -23,11 +22,10 @@ import java.util.List;
 public class Post{
 
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 
     private String titulo;
-
     
     private String corpo;
 
@@ -36,8 +34,9 @@ public class Post{
 
     private String categoria;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp dataDeCriacao;
+    @Temporal(TemporalType.DATE)
+    private Date dataDeCriacao;
+
 
     @ManyToOne
     private Usuario usuario;

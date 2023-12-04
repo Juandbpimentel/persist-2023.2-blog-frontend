@@ -1,16 +1,14 @@
 package br.ufc.quixada.blog.models;
 
-
 import java.sql.Timestamp;
+import java.util.Date;
 
-// import com.fasterxml.jackson.annotation.JsonBackReference;
-// import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-// import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 @Entity
 @Table(name = "comentarios", schema = "public")
 @Data
@@ -22,19 +20,18 @@ import lombok.*;
 public class Comentario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 
     private String corpo;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp dataDeCriacao;
+    @Temporal(TemporalType.DATE)
+    private Date dataDeCriacao;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+
+    @ManyToOne
     private Post post;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Usuario usuario;
 }

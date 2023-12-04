@@ -1,6 +1,6 @@
-package br.ufc.quixada.blog.ui.testes;
+package br.ufc.quixada.blog.testes;
 
-import br.ufc.quixada.blog.dao.PostDAO;
+import br.ufc.quixada.blog.dao.relational.PostDaoRelacional;
 // import br.ufc.quixada.blog.dao.UserDAO;
 import br.ufc.quixada.blog.models.Post;
 // import br.ufc.quixada.blog.models.Usuario;
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class BuscaPosts implements CommandLineRunner {
 
     @Autowired
-    private PostDAO postDAO;
+    private PostDaoRelacional postDAO;
 
     private List<Post> posts = new ArrayList<>();
 
@@ -51,13 +51,11 @@ public class BuscaPosts implements CommandLineRunner {
             System.out.println(post.getTitulo() + " " +post.getRate());
         }
 
-        int qtdPosts = postDAO.countPosts();
+        long qtdPosts = postDAO.count();
         System.out.println("Qtd posts cadastrados: " + qtdPosts);
 
-        List<Map<String, Integer>> qtdByCategoria = postDAO.countPostsByCategoria();
-        for(Map<String, Integer> currentCount : qtdByCategoria){
-            System.out.println(currentCount.get("categoria") +": "+ currentCount.get("count"));
-        }
+        Integer qtdByCategoria = postDAO.countPostsByCategoria("Gerencia de Configuracao");
+        System.out.println(("categoria") +"Gerencia de Configuracao" + ": "+ "count: "+ qtdByCategoria);
 
     }
     

@@ -1,35 +1,33 @@
 package br.ufc.quixada.blog.dao;
 
+import java.util.List;
+import java.util.Optional;
+
+
+import br.ufc.quixada.blog.models.Comentario;
 import br.ufc.quixada.blog.models.Post;
 import br.ufc.quixada.blog.models.Usuario;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
+@Component
+public interface UserDAO {
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+    // Crud
 
-@Repository
-public interface UserDAO extends JpaRepository<Usuario, Integer> {
+    public Usuario save(Usuario usuario);
 
-    public Usuario findFirstByEmail(String email);
+    public List<Usuario> findAll();
 
-    @Query("select u from Usuario u where u.email = :email")
-    public Usuario buscaUsuarioPorEmail(String email);
+    public Optional<Usuario> findById(String id);
 
-    // a busca "usuarioPorEmail está definida na Classe User"
-    @Query(name = "buscarUsuarioPorEmail")
-    public Usuario buscarUsuarioPorEmail(String email);
+    public void deleteById(String id);
 
-    @Query(name = "buscarPostsPorIdDeUsuario")
-    public List<Post> buscarPostsPorIdDeUsuario(int id);
+    public boolean existsById(String id);
 
-    @Query("select u from Usuario u where Cast(strftime('%Y', u.dataDeNascimento / 1000, 'unixepoch') as integer) = :ano")
-    public List<Usuario> buscarUsuariosPorAnoDeNascimentoSQLITE(int ano);
+    public void delete(Usuario usuario);
 
-    // @Query("select u from Usuario u where Extract(year from to_timestamp(to_char(
-    // (u.dataDeNascimento),'YYYY-MM-DD'),'YYYY-MM-DD')) = :ano")
-    @Query("select u from Usuario u where Extract(year from u.dataDeNascimento) = :ano")
-    public List<Usuario> buscarUsuariosPorAnoDeNascimentoPGSQL(int ano);
+    // Operações específicas
+
+    public Optional<Usuario> findFirstByEmail(String email);
 
 }

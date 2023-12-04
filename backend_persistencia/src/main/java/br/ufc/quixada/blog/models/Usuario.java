@@ -1,21 +1,17 @@
 package br.ufc.quixada.blog.models;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Collection;
-// import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.*;
 
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@NamedQueries({
-        @NamedQuery(name = "buscarUsuarioPorEmail", query = "select u from Usuario u where u.email = :email")
-        ,@NamedQuery(name = "buscarPostsPorIdDeUsuario", query = "select u.posts from Usuario u where u.id = :id")
-})
-
+@Document
 @Entity
 @Table(name = "usuarios", schema = "public")
 @Data
@@ -27,8 +23,8 @@ import jakarta.persistence.*;
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
     
     private String name;
 
@@ -43,16 +39,16 @@ public class Usuario implements Serializable {
     @Column(columnDefinition = "numeric default 0.0")
     private Double rate = 0.0;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp dataDeNascimento;
+    @Temporal(TemporalType.DATE)
+    private Date dataDeNascimento;
 
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Post> posts;
 
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Comentario> comentarios;
 

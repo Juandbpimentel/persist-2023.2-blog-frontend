@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufc.quixada.blog.dao.PostDAO;
 import br.ufc.quixada.blog.dao.UserDAO;
+// import br.ufc.quixada.blog.dao.relational.PostDaoRelacional;
 import br.ufc.quixada.blog.models.Post;
 import br.ufc.quixada.blog.models.Usuario;
+
+// import br.ufc.quixada.blog.dao.relational.UserDaoRelacional;
+
 
 @RestController
 @RequestMapping("/posts")
@@ -39,9 +43,14 @@ public class PostsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable Integer id) {
+    public ResponseEntity<Post> getPost(@PathVariable String id) {
         Optional<Post> postOpt = postDAO.findById(id);
         return postOpt.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<List<Post>> getPostsByUserId(@PathVariable String id){
+        return ResponseEntity.ok(postDAO.findPostsByUsuarioId(id));
     }
 
     @GetMapping("/search/title")
@@ -60,18 +69,18 @@ public class PostsController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> countPosts() {
-        return ResponseEntity.ok(postDAO.countPosts());
+    public ResponseEntity<Long> countPosts() {
+        return ResponseEntity.ok(postDAO.count());
     }
 
-    @GetMapping("/countByCategory")
-    public ResponseEntity<List<Map<String, Integer>>> countPostsByCategory() {
-        return ResponseEntity.ok(postDAO.countPostsByCategoria());
+    @GetMapping("/countByCategory/{categoria}")
+    public ResponseEntity<Integer> countPostsByCategory(@PathVariable String categoria) {
+        return ResponseEntity.ok(postDAO.countPostsByCategoria(categoria));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Post> savePost(@RequestBody Post post, @RequestParam Integer userId) {
+    public ResponseEntity<Post> savePost(@RequestBody Post post, @RequestParam String userId) {
         Optional<Usuario> usuarioOpt = userDAO.findById(userId);
         if (usuarioOpt.isPresent()) {
             post.setUsuario(usuarioOpt.get());
@@ -83,7 +92,7 @@ public class PostsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletePost(@PathVariable String id) {
         if (postDAO.existsById(id)) {
             postDAO.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -93,7 +102,7 @@ public class PostsController {
     }
 
     @PutMapping(value="/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Post> updatePost(@RequestBody Post updatedPost, @PathVariable Integer id) {
+    public ResponseEntity<Post> updatePost(@RequestBody Post updatedPost, @PathVariable String id) {
         Optional<Post> postOpt = postDAO.findById(id);
         if (postOpt.isPresent()) {
             Post existingPost = postOpt.get();

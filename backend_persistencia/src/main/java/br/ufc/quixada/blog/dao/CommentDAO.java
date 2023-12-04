@@ -1,19 +1,32 @@
 package br.ufc.quixada.blog.dao;
 
-import br.ufc.quixada.blog.models.Comentario;
-
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import br.ufc.quixada.blog.models.Comentario;
+import org.springframework.stereotype.Component;
 
-@Repository
-public interface CommentDAO extends JpaRepository<Comentario, Integer> {
+@Component
+public interface CommentDAO {
 
-    // @Query("")
-    // @Query(value = "select count(id) from posts p", nativeQuery = true)
-    @Query(value = "select * from comentarios where post_id = :post_id", nativeQuery = true)
-    public List<Comentario> findByPostId(int post_id);
+    // Crud
+
+    public Comentario save(Comentario comentario);
+
+    public List<Comentario> findAll();
+
+    public Optional<Comentario> findById(String id);
+
+    public void deleteById(String id);
+
+    public boolean existsById(String id);
+
+    public void deleteByUserId(String id);
+
+    // Operações específicas
+
+    public List<Comentario> findByPostId(String post_id);
+
+    public List<Comentario> findByUsuarioId(String userId);
 
 }
