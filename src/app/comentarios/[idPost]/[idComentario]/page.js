@@ -24,7 +24,9 @@ const ComentarioPage = ({ params }) => {
       }
 
       const response = await axios
-        .get(`http://localhost:8080/comentarios/${idComentario}`)
+        .get(
+          `https://persist-20232-blog-production.up.railway.app/comentarios/${idComentario}`
+        )
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);

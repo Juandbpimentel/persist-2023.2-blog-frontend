@@ -23,7 +23,9 @@ const UsuarioPage = ({ params }) => {
       }
 
       const response = await axios
-        .get(`http://localhost:8080/posts/${idPost}`)
+        .get(
+          `https://persist-20232-blog-production.up.railway.app/posts/${idPost}`
+        )
         .then((response) => response.data);
 
       if (response === null) {
@@ -47,10 +49,13 @@ const UsuarioPage = ({ params }) => {
       titulo,
       corpo,
       rate,
-      categoria
+      categoria,
     };
     await axios
-      .put(`http://localhost:8080/posts/${post.id}`, payload)
+      .put(
+        `https://persist-20232-blog-production.up.railway.app/posts/${post.id}`,
+        payload
+      )
       .then((response) => {
         if (response.status === 200) {
           router.push("/posts/list");

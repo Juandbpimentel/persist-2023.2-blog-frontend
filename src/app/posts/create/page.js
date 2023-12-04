@@ -26,7 +26,10 @@ const CriarUsuarioPage = () => {
       dataDeCriacao: new Date(),
     };
     await axios
-      .post(`http://localhost:8080/posts?userId=${idUsuario}`, payload)
+      .post(
+        `https://persist-20232-blog-production.up.railway.app/posts?userId=${idUsuario}`,
+        payload
+      )
       .then((response) => {
         if (response.status === 200) {
           router.push("/posts/list");

@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const CriarComentarioPage = ({params}) => {
+const CriarComentarioPage = ({ params }) => {
   const [corpo, setCorpo] = useState("");
   const [dataDeCriacao, setDataDeCriacao] = useState("");
   const [idUsuario, setIdUsuario] = useState("");
@@ -22,7 +22,10 @@ const CriarComentarioPage = ({params}) => {
       dataDeCriacao,
     };
     await axios
-      .post(`http://localhost:8080/comentarios?idPost=${idPost}&idUsuario=${idUsuario}`, payload)
+      .post(
+        `https://persist-20232-blog-production.up.railway.app/comentarios?idPost=${idPost}&idUsuario=${idUsuario}`,
+        payload
+      )
       .then((response) => {
         if (response.status === 200) {
           router.push(`/posts/${idPost}/comentarios`);
@@ -62,7 +65,7 @@ const CriarComentarioPage = ({params}) => {
         style={{ display: "flex", flexDirection: "column", width: "50%" }}
       >
         <label className="form-label" htmlFor="corpo">
-            Corpo
+          Corpo
         </label>
         <input
           className="form-control"

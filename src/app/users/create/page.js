@@ -28,7 +28,10 @@ const CriarUsuarioPage = () => {
       dataDeNascimento,
     };
     await axios
-      .post("http://localhost:8080/usuarios", payload)
+      .post(
+        "https://persist-20232-blog-production.up.railway.app/usuarios",
+        payload
+      )
       .then((response) => {
         if (response.status === 201) {
           router.push("/users/list");

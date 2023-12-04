@@ -13,7 +13,7 @@ const ContarPostsPage = () => {
 
   async function fazConsulta() {
     const response = await axios
-      .get(`http://localhost:8080/posts/count`)
+      .get(`https://persist-20232-blog-production.up.railway.app/posts/count`)
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);

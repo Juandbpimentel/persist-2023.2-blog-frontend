@@ -39,7 +39,9 @@ const PostDeUsuarioPage = ({ params }) => {
 
     if (prev.current === comentarios) return;
     const response = await axios
-      .get(`http://localhost:8080/posts/${params.idPost}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/posts/${params.idPost}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);
@@ -52,7 +54,9 @@ const PostDeUsuarioPage = ({ params }) => {
     }
 
     const comentariosResponse = await axios
-      .get(`http://localhost:8080/comentarios/post/${idPost}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/comentarios/post/${idPost}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);
@@ -82,7 +86,9 @@ const PostDeUsuarioPage = ({ params }) => {
     novosComentarios.splice(index, 1);
     console.log("deletar");
     await axios
-      .delete(`http://localhost:8080/comentarios/${id}`)
+      .delete(
+        `https://persist-20232-blog-production.up.railway.app/comentarios/${id}`
+      )
       .then((response) => {
         if (response.status !== 200) {
           alert("Comentario deletado com sucesso!");

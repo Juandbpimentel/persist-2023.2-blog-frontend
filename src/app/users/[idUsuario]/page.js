@@ -24,7 +24,9 @@ const UsuarioPage = ({ params }) => {
       }
 
       const response = await axios
-        .get(`http://localhost:8080/usuarios/${params.idUsuario}`)
+        .get(
+          `https://persist-20232-blog-production.up.railway.app/usuarios/${params.idUsuario}`
+        )
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);

@@ -20,9 +20,13 @@ const FindPostByTitlePage = () => {
   }
 
   async function fazConsulta() {
-    console.log(`http://localhost:8080/posts/search/title?term=${titulo}`);
+    console.log(
+      `https://persist-20232-blog-production.up.railway.app/posts/search/title?term=${titulo}`
+    );
     const response = await axios
-      .get(`http://localhost:8080/posts/search/title?term=${titulo}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/posts/search/title?term=${titulo}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);

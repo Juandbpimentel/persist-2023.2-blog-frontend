@@ -24,7 +24,9 @@ const PostPage = ({ params }) => {
       }
 
       const response = await axios
-        .get(`http://localhost:8080/posts/${params.idPost}`)
+        .get(
+          `https://persist-20232-blog-production.up.railway.app/posts/${params.idPost}`
+        )
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);

@@ -21,7 +21,9 @@ const FindPostByRatePage = () => {
 
   async function fazConsulta() {
     const response = await axios
-      .get(`http://localhost:8080/posts/search/rate?minRate=${rate}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/posts/search/rate?minRate=${rate}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);

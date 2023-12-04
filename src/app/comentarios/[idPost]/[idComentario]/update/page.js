@@ -21,7 +21,9 @@ const AtualizarComentarioPage = ({ params }) => {
       }
 
       const response = await axios
-        .get(`http://localhost:8080/comentarios/${idComentario}`)
+        .get(
+          `https://persist-20232-blog-production.up.railway.app/comentarios/${idComentario}`
+        )
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);
@@ -48,7 +50,7 @@ const AtualizarComentarioPage = ({ params }) => {
     };
     await axios
       .put(
-        `http://localhost:8080/comentarios/${comentario.id}?idPost=${idPost}&idUsuario=${comentario.usuario.id}`,
+        `https://persist-20232-blog-production.up.railway.app/comentarios/${comentario.id}?idPost=${idPost}&idUsuario=${comentario.usuario.id}`,
         payload
       )
       .then((response) => {
@@ -79,7 +81,9 @@ const AtualizarComentarioPage = ({ params }) => {
 
   return (
     <SubPageContainer
-      menuTitle={"Formulário de edição de comentário - comentário " + idComentario}
+      menuTitle={
+        "Formulário de edição de comentário - comentário " + idComentario
+      }
       returnCallback={() => router.push(`/posts/${idPost}/comentarios`)}
     >
       <form

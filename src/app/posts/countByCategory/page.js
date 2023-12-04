@@ -16,7 +16,7 @@ const ContarPostsCategoriaPage = () => {
   async function fazConsulta() {
     if (loaded) return;
     const response = await axios
-      .get(`http://localhost:8080/posts`)
+      .get(`https://persist-20232-blog-production.up.railway.app/posts`)
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);

@@ -13,7 +13,7 @@ const ListarUsuariosPage = () => {
     async function getPosts() {
       if (prev.current === posts) return;
       const response = await axios
-        .get(`http://localhost:8080/posts`)
+        .get(`https://persist-20232-blog-production.up.railway.app/posts`)
         .then((response) => response.data);
 
       if (response === null) {
@@ -38,7 +38,9 @@ const ListarUsuariosPage = () => {
     novosPosts.splice(index, 1);
     console.log("deletar");
     await axios
-      .delete(`http://localhost:8080/posts/${id}`)
+      .delete(
+        `https://persist-20232-blog-production.up.railway.app/posts/${id}`
+      )
       .then((response) => {
         if (response.status !== 200) {
           alert("Post deletado com sucesso!");

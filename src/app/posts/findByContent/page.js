@@ -21,7 +21,9 @@ const FindPostByContentPage = () => {
 
   async function fazConsulta() {
     const response = await axios
-      .get(`http://localhost:8080/posts/search/body?term=${conteudo}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/posts/search/body?term=${conteudo}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);

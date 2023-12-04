@@ -16,7 +16,9 @@ const FindComentarioByIdPage = () => {
     event.preventDefault();
 
     const response = await axios
-      .get(`http://localhost:8080/comentarios/${id}`)
+      .get(
+        `https://persist-20232-blog-production.up.railway.app/comentarios/${id}`
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);
